@@ -8,6 +8,8 @@ API key is mandatory irrespective of api providers
 
 Using that single api one can make wonders like showing the geo-location, weatherforecast report nearly for 15 days, historical weatherreport for predictions and astronomy as well.
 
+I've used some of the angularjs concepts like routing, http service, local storage (for persisting of data even after refreshing the page).
+
 Along with the code, I have also attached the demo of this web-app.
 
 Hope you like this small web-app
