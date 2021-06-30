@@ -1,6 +1,6 @@
 # WeatherForecast
 
-This is a Angularjs web-appliation where a user can fetch the weather forecast report using a public api
+This is a Angularjs web-appliation where a user can fetch the weather forecast report using an api
 
 To get an api, one can visit any weather forecast api providers and here in this project I got an api along with the key from weatherapi.com
 
