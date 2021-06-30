@@ -1,0 +1,91 @@
+<html>
+<head>
+    <style>
+        .city{
+            font-weight: bold;
+            
+        }
+
+        .color-white{
+            color: white;
+        }
+
+        .bold{
+            font-weight: 640;
+        }
+    </style>
+</head>
+
+<body>
+<p>
+    <a href="#/">Back to Search</a>
+</p>
+
+<h2 ng-if="!notFound">Weather forecast for <span class="text-capitalize city">{{ weatherResult.location.name}}</span></h2>
+
+
+<div ng-if="!notFound">
+<hr>
+Get Weather forecast for next n days: <a href="#/forecast/2" ng-class="{ 'bg-primary': days === '2','color-white': days === '2' }">1</a> | <a href="#/forecast/3" ng-class="{ 'bg-primary': days === '3', 'color-white' : days === '3' }">2</a> | <a href="#/forecast/5" ng-class="{ 'bg-primary': days === '5','color-white': days === '5' }">4</a>
+</div>
+<hr>
+<div ng-if="!notFound">
+    <p>{{weatherResult.location.name}}, {{weatherResult.location.region}}, <span class="bold">{{weatherResult.location.country | uppercase}}</span> </p>
+</div>
+
+<div class="row">
+    <div class="col-md-12" ng-if="!notFound" ng-cloak>
+        <div class="card card-default">
+            <div class="bg-success color-white card-header" style="display: flex;">
+                <div>
+                    <h3 class="card-title">Current day: {{ weatherResult.forecast.forecastday[0].date | date: 'MMM d, y' }}</h3>
+                </div>
+                <div>
+                    <img ng-src="{{weatherResult.forecast.forecastday[0].day.condition.icon}}" alt="" height="45" width="50" style="margin-left: 50px;">
+                </div>
+            </div>
+            <div class="card-body">
+                <p><span class="bold">Current Temperature:</span> {{ weatherResult.current.temp_f +'F' }}</p>
+                <p><span class="bold">Weather Condition :</span> {{weatherResult.forecast.forecastday[0].day.condition.text}}</p>
+                <p><span class="bold">Chance of Rain:</span> {{weatherResult.forecast.forecastday[0].day.daily_chance_of_rain + '%'}}</p>
+                <p><span class="bold">SunRise Time:</span> {{weatherResult.forecast.forecastday[0].astro.sunrise | date: 'HH:mm'}} | <span class="bold">SunSet Time:</span> {{weatherResult.forecast.forecastday[0].astro.sunset | date: 'HH:mm'}}</p>
+                <p><span class="bold">Last Updated :</span> {{weatherResult.current.last_updated | date: 'MMM d, y  HH:mm'}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div>
+    
+    <div class="row" ng-repeat="w in weatherResult.forecast.forecastday | limitTo: (1 - len)" >
+        <div class="col-md-12" ng-if="!notFound" ng-cloak>
+            <div class="card card-default">
+                <div class="card-header bg-primary color-white" style="display: flex;">
+                    <div>
+                        <h3 class="card-title">{{ w.date | date: 'MMM d, y' }}</h3>
+                    </div>
+                    <div>
+                        <img ng-src="{{w.day.condition.icon}}" alt="" height="45" width="50" style="margin-left: 50px;">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p><span class="bold">Minimum temp:</span> {{ w.day.maxtemp_f +'F' }} | <span class="bold">Maximum temp:</span> {{w.day.mintemp_f +'F'}} </p>
+                    <p><span class="bold">Expected Weather Condition :</span> {{w.day.condition.text}}</p>
+                    <p><span class="bold">Chance of Rain:</span> {{w.day.daily_chance_of_rain + '%'}}</p>
+                    <p><span class="bold">Expected SunRise Time:</span> {{w.astro.sunrise | date: 'HH:mm'}} |<span class="bold"> Expected SunSet Time:</span> {{w.astro.sunset | date: 'HH:mm'}}</p>
+                    <!--p>Last Updated : {{weatherResult.current.last_updated | date: 'MMM d, y  HH:mm'}}</p-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="col-md-12 bg-danger color-white" ng-if="notFound" style="border-radius: 5px; text-align: center;">
+            <p>Data not found for the city <span class="bold">{{city}}</span></p>
+            <p>Please enter valid city name...</p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
